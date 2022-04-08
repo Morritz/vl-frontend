@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import { PokemonEntry, PokemonEntryProps } from "../components/PokemonEntry";
+import { Spinner } from "../components/Spinner";
 import { queryPokemons } from "../queries/pokemonQuery";
 import { useStore } from "../store/store";
 
@@ -15,7 +16,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
 
   const loadMorePokemons = async () => {
     setLoadMoreButtonDisabled(true);
-    const newPokemons = await queryPokemons(500, state.pokemons.length);
+    const newPokemons = await queryPokemons(20, state.pokemons.length);
     state.addPokemons(newPokemons);
     setLoadMoreButtonDisabled(false);
   };
@@ -35,13 +36,14 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
                 return <PokemonEntry key={pokemon.name} {...pokemon} />;
               })}
             </div>
-            <div className="flex p-4 justify-center">
+            <div className="flex p-4 justify-center flex-row">
               <button
                 disabled={isLoadMoreButtonDisabled}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
                 onClick={loadMorePokemons}
               >
-                Load more...
+                {"Load more..."}
+                <Spinner visibility={isLoadMoreButtonDisabled} />
               </button>
             </div>
           </>
