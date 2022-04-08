@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useCallback, useEffect } from "react";
+import { useState } from "react";
 import { PokemonEntry, PokemonEntryProps } from "../components/PokemonEntry";
 import { queryPokemons } from "../queries/pokemonQuery";
 import { useStore } from "../store/store";
@@ -11,10 +11,13 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ pokemons }) => {
   const state = useStore(pokemons)();
 
+  const [isLoadMoreButtonDisabled, setLoadMoreButtonDisabled] = useState(false);
+
   const loadMorePokemons = async () => {
-    const newPokemons = await queryPokemons(20, state.pokemons.length);
+    setLoadMoreButtonDisabled(true);
+    const newPokemons = await queryPokemons(500, state.pokemons.length);
     state.addPokemons(newPokemons);
-    console.log(state.pokemons);
+    setLoadMoreButtonDisabled(false);
   };
 
   return (
@@ -34,6 +37,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
             </div>
             <div className="flex p-4 justify-center">
               <button
+                disabled={isLoadMoreButtonDisabled}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick={loadMorePokemons}
               >
