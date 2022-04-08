@@ -5,6 +5,7 @@ import { PokemonEntry, PokemonEntryProps } from "../components/PokemonEntry";
 import { Spinner } from "../components/Spinner";
 import { queryPokemons } from "../queries/pokemonQuery";
 import { useStore } from "../store/store";
+import clsx from "clsx";
 
 interface HomeProps {
   pokemons: PokemonEntryProps[];
@@ -39,7 +40,10 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
             <div className="flex p-4 justify-center flex-row">
               <button
                 disabled={isLoadMoreButtonDisabled}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+                className={clsx(
+                  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center",
+                  isLoadMoreButtonDisabled && "cursor-not-allowed"
+                )}
                 onClick={loadMorePokemons}
               >
                 {"Load more..."}
