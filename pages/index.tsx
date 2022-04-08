@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { PokemonEntry, PokemonEntryProps } from "../components/PokemonEntry";
 import { queryPokemons } from "../queries/pokemonQuery";
 import { useStore } from "../store/store";
@@ -11,6 +11,12 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ pokemons }) => {
   const state = useStore(pokemons)();
 
+  const loadMorePokemons = async () => {
+    const newPokemons = await queryPokemons(20, state.pokemons.length);
+    state.addPokemons(newPokemons);
+    console.log(state.pokemons);
+  };
+
   return (
     <>
       <Head>
@@ -19,12 +25,22 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="bg-gray-50 min-h-screen">
-        {state.pokemons.length < 0 ? (
-          <div className="flex flex-row flex-wrap">
-            {state.pokemons.map((pokemon) => {
-              return <PokemonEntry {...pokemon} />;
-            })}
-          </div>
+        {state.pokemons.length > 0 ? (
+          <>
+            <div className="flex flex-row flex-wrap">
+              {state.pokemons.map((pokemon) => {
+                return <PokemonEntry key={pokemon.name} {...pokemon} />;
+              })}
+            </div>
+            <div className="flex p-4 justify-center">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={loadMorePokemons}
+              >
+                Load more...
+              </button>
+            </div>
+          </>
         ) : (
           <p className="text-center text-2xl">
             Unfortunately, we could not provide you with pokemons.
