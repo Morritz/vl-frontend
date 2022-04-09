@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PokemonEntry, PokemonEntryProps } from "../components/PokemonEntry";
 import { Spinner } from "../components/Spinner";
 import { queryPokemons } from "../queries/pokemonQuery";
-import { useStore } from "../store/store";
+import { usePokemonStore } from "../store/pokemonStore";
 import clsx from "clsx";
 import { Toasts } from "../components/Toasts";
 
@@ -12,7 +12,7 @@ interface HomeProps {
   pokemons: PokemonEntryProps[];
 }
 const Home: NextPage<HomeProps> = ({ pokemons }) => {
-  const state = useStore(pokemons)();
+  const state = usePokemonStore(pokemons)();
 
   const [isLoadMoreButtonDisabled, setLoadMoreButtonDisabled] = useState(false);
 

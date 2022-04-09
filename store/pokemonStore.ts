@@ -3,7 +3,7 @@ import create from "zustand";
 import { combine } from "zustand/middleware";
 import { PokemonEntryProps } from "../components/PokemonEntry";
 
-export const useStore = (pokemons: PokemonEntryProps[]) =>
+export const usePokemonStore = (pokemons: PokemonEntryProps[]) =>
   useCallback(
     create(
       combine({ pokemons }, (set) => ({
