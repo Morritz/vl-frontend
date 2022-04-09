@@ -5,8 +5,7 @@ export const useToastStore = create(
   combine({ toastList: [] as string[] }, (set, get) => ({
     addToast: (message: string) => {
       const newToastList = [...get().toastList, message];
-      newToastList.splice(-4);
-      return set(() => ({ toastList: newToastList }));
+      return set(() => ({ toastList: newToastList.splice(-4) }));
     },
   }))
 );

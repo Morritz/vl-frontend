@@ -7,12 +7,14 @@ import { queryPokemons } from "../queries/pokemonQuery";
 import { usePokemonStore } from "../store/pokemonStore";
 import clsx from "clsx";
 import { Toasts } from "../components/Toasts";
+import { useToastStore } from "../store/toastStore";
 
 interface HomeProps {
   pokemons: PokemonEntryProps[];
 }
 const Home: NextPage<HomeProps> = ({ pokemons }) => {
   const state = usePokemonStore(pokemons)();
+  const toasts = useToastStore();
 
   const [isLoadMoreButtonDisabled, setLoadMoreButtonDisabled] = useState(false);
 
@@ -20,6 +22,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
     setLoadMoreButtonDisabled(true);
     const newPokemons = await queryPokemons(20, state.pokemons.length);
     state.addPokemons(newPokemons);
+    toasts.addToast(`${newPokemons.length} pokemons loaded!`);
     setLoadMoreButtonDisabled(false);
   };
 
