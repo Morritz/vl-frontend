@@ -20,6 +20,16 @@ export const Modal = ({ pokemon, onClose }: IModal) => {
         </button>
       </div>
       <PokemonEntry {...pokemon.basicDetails} />
+      <div className="p-4 flex flex-row gap-4 border">
+        <div className="uppercase font-bold">
+          <p>Height</p>
+          <p>Weight</p>
+        </div>
+        <div>
+          <p>{pokemon.extendedDetails.height}</p>
+          <p>{pokemon.extendedDetails.weight}</p>
+        </div>
+      </div>
     </div>
   );
 };
