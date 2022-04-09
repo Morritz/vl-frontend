@@ -10,7 +10,7 @@ export interface PokemonEntryProps {
 export const PokemonEntry = ({ name, type, sprite }: PokemonEntryProps) => {
   return (
     <motion.div
-      className="p-2 basis-1/3"
+      className="p-2 basis-full md:basis-1/2 lg:basis-1/3"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

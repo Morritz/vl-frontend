@@ -21,9 +21,9 @@ const Toast = ({ message }: ToastProps) => {
   ) : null;
 };
 export const Toasts = () => {
-  return (
+  return true ? (
     <div className="fixed right-4 bottom-4 flex flex-col gap-y-2">
-      <Toast message="No pokemons loaded." />
+      <Toast message={"test"} />
     </div>
-  );
+  ) : null;
 };

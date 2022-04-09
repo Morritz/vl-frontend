@@ -18,7 +18,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
 
   const loadMorePokemons = async () => {
     setLoadMoreButtonDisabled(true);
-    const newPokemons = await queryPokemons(500, state.pokemons.length);
+    const newPokemons = await queryPokemons(20, state.pokemons.length);
     state.addPokemons(newPokemons);
     setLoadMoreButtonDisabled(false);
   };
