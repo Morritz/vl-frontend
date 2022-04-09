@@ -6,6 +6,7 @@ import { Spinner } from "../components/Spinner";
 import { queryPokemons } from "../queries/pokemonQuery";
 import { useStore } from "../store/store";
 import clsx from "clsx";
+import { Toasts } from "../components/Toasts";
 
 interface HomeProps {
   pokemons: PokemonEntryProps[];
@@ -17,7 +18,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
 
   const loadMorePokemons = async () => {
     setLoadMoreButtonDisabled(true);
-    const newPokemons = await queryPokemons(20, state.pokemons.length);
+    const newPokemons = await queryPokemons(500, state.pokemons.length);
     state.addPokemons(newPokemons);
     setLoadMoreButtonDisabled(false);
   };
@@ -50,6 +51,7 @@ const Home: NextPage<HomeProps> = ({ pokemons }) => {
                 <Spinner visibility={isLoadMoreButtonDisabled} />
               </button>
             </div>
+            <Toasts />
           </>
         ) : (
           <p className="text-center text-2xl">
