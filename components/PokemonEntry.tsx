@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export interface PokemonEntryProps {
@@ -8,7 +9,12 @@ export interface PokemonEntryProps {
 
 export const PokemonEntry = ({ name, type, sprite }: PokemonEntryProps) => {
   return (
-    <div className="p-2 w-[320px]">
+    <motion.div
+      className="p-2 w-[320px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="flex flex-row items-center bg-yellow-50 rounded-xl p-2 gap-8 drop-shadow">
         <Image
           src={
@@ -24,6 +30,6 @@ export const PokemonEntry = ({ name, type, sprite }: PokemonEntryProps) => {
           <p>Type: {type}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
