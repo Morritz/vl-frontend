@@ -5,11 +5,18 @@ export interface PokemonEntryProps {
   name: string;
   type: string;
   sprite: string;
+  onClick?: () => void;
 }
 
-export const PokemonEntry = ({ name, type, sprite }: PokemonEntryProps) => {
+export const PokemonEntry = ({
+  name,
+  type,
+  sprite,
+  onClick,
+}: PokemonEntryProps) => {
   return (
     <motion.div
+      onClick={onClick}
       className="p-2 basis-full md:basis-1/2 lg:basis-1/3"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

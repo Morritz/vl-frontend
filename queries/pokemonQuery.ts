@@ -1,4 +1,5 @@
 import { PokemonEntryProps } from "../components/PokemonEntry";
+import { IPokemon } from "../interfaces/Pokemon";
 import { IPokemonDetails } from "../interfaces/PokemonDetails";
 interface IPokemonQueryResult {
   name: string;
@@ -19,14 +20,20 @@ export const queryPokemons = async (limit: number = 20, offset: number = 0) => {
     );
     const data = (await res.json()) as IPokemonQuery;
 
-    const pokemons: PokemonEntryProps[] = await Promise.all(
+    const pokemons: IPokemon[] = await Promise.all(
       data.results.map(async (result) => {
         const res = await fetch(result.url);
         const data = (await res.json()) as IPokemonDetails;
         return {
-          name: data.name,
-          sprite: data.sprites.front_default,
-          type: data.types[0].type.name,
+          basicDetails: {
+            name: data.name,
+            sprite: data.sprites.front_default,
+            type: data.types[0].type.name,
+          },
+          extendedDetails: {
+            height: data.height,
+            weight: data.weight,
+          },
         };
       })
     );
