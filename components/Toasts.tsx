@@ -34,8 +34,8 @@ export const Toasts = () => {
   const toasts = useToastStore();
   return toasts.toastList.length > 0 ? (
     <div className="fixed right-4 bottom-4 flex flex-col gap-y-2">
-      {toasts.toastList.map((message, index) => {
-        return <Toast key={index} message={message} />;
+      {toasts.toastList.map((toast) => {
+        return <Toast key={toast.id} message={toast.message} />;
       })}
     </div>
   ) : null;
